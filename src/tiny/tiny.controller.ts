@@ -1,11 +1,22 @@
-import { Controller, Get, Post, Put, Delete, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Param,
+  Query,
+  Body,
+} from '@nestjs/common';
+import { CreateTinyDto } from './dto/create-tiny.dto';
+import { UpdateTinyDto } from './dto/update-tiny.dto';
 
 @Controller('tiny')
 export class TinyController {
-  // Get / tiny ==> []
+  // Get /tiny?tyoe=fast ==> []
   @Get()
-  getTiny() {
-    return [];
+  getTiny(@Query('type') type: string) {
+    return [{ type }];
   }
 
   // Get / tiny/:id ==> {...}
@@ -18,15 +29,15 @@ export class TinyController {
 
   // POST / tiny ==> {...}
   @Post()
-  createTiny(@Param('id') id: string) {
+  createTiny(@Body() createTinyDto: CreateTinyDto) {
     return {
-      id,
+      name: createTinyDto.name,
     };
   }
 
   // PUT /tiny/:id ==> {...}
   @Put(':id')
-  updateTiny(@Param('id') id: string) {
+  updateTiny(@Param('id') id: string, @Body() updateTinyDto: UpdateTinyDto) {
     return {
       id,
     };
