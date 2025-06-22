@@ -10,13 +10,15 @@ import {
 } from '@nestjs/common';
 import { CreateTinyDto } from './dto/create-tiny.dto';
 import { UpdateTinyDto } from './dto/update-tiny.dto';
+import { TinyService } from './tiny.service';
 
 @Controller('tiny')
 export class TinyController {
-  // Get /tiny?tyoe=fast ==> []
+  // Get /tiny?weapon=fast ==> []
   @Get()
-  getTiny(@Query('type') type: string) {
-    return [{ type }];
+  getTiny(@Query('weapon') weapon: 'stars' | 'nunchucks') {
+    const serice = new TinyService();
+    return serice.getTiny(weapon);
   }
 
   // Get / tiny/:id ==> {...}
