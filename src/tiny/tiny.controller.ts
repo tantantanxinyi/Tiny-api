@@ -14,11 +14,12 @@ import { TinyService } from './tiny.service';
 
 @Controller('tiny')
 export class TinyController {
+  constructor(private readonly tinyService: TinyService) {}
   // Get /tiny?weapon=fast ==> []
   @Get()
   getTiny(@Query('weapon') weapon: 'stars' | 'nunchucks') {
-    const serice = new TinyService();
-    return serice.getTiny(weapon);
+    // const serice = new TinyService();
+    return this.tinyService.getTinys(weapon);
   }
 
   // Get / tiny/:id ==> {...}
